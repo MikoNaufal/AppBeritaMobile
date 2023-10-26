@@ -19,14 +19,14 @@
         android:layout_height="168dp"
         android:layout_below="@+id/img_1"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/gambar2"
+        android:src="@drawable/gambar3"
         android:id="@+id/img_2"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_2"
-        android:text="MEETSOUND"
+        android:text="MEETNEWS"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/poppinsbold"

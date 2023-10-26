@@ -41,7 +41,7 @@
         android:layout_below="@id/L_txt_1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/gambar2" />
+        android:src="@drawable/gambar3" />
 
     <LinearLayout
         android:id="@+id/ly_1"
