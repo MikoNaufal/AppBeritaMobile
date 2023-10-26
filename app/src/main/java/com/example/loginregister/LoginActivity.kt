@@ -3,28 +3,53 @@ package com.example.loginregister
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_login.L_img_1
-import kotlinx.android.synthetic.main.activity_login.txt_register
+import android.widget.Button
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.loginregister.databinding.ActivityLoginBinding
+import db.AppDatabase
+import db.Regis
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding=ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.hide()
+
 
         btnBackLoginListener()
         txtRegisterListener()
     }
     private fun btnBackLoginListener(){
-        L_img_1.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+        lifecycleScope.launch {
+            login()
         }
     }
     private fun txtRegisterListener(){
-        txt_register.setOnClickListener{
+        binding.txtRegister.setOnClickListener{
             startActivity(Intent(this,Register::class.java))
         }
     }
 
+    suspend fun login() {
+        val db = AppDatabase.getDatabase(this)
+        val dao = db?.RegisDao()
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtConfPassword.text.toString()
+        val getEmail = dao?.getEmail(email).toString()
+        val getPassword = dao?.getPassword(password).toString()
+
+
+
+        if (dao?.login(email, password) == true) {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
 }
