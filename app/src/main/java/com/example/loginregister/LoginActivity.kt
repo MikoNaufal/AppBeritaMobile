@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             login()
         }
+        startActivity(Intent(this,NewsActivity::class.java))
     }
     private fun txtRegisterListener(){
         binding.txtRegister.setOnClickListener{
