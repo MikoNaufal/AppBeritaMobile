@@ -1,4 +1,4 @@
-package db
+package com.example.loginregister.db
 
 import android.content.Context
 import androidx.room.Database

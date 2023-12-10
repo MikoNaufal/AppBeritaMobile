@@ -7,33 +7,29 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.loginregister.databinding.ActivityLoginBinding
-import db.AppDatabase
-import db.Regis
+import com.example.loginregister.db.AppDatabase
+import com.example.loginregister.db.Regis
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
 
 
-        btnBackLoginListener()
+
+        binding.LBtn1.setOnClickListener {
+            lifecycleScope.launch {
+                login()
+            }
+
+        }
+
         txtRegisterListener()
-    }
-    private fun btnBackLoginListener(){
-        lifecycleScope.launch {
-            login()
-        }
-        startActivity(Intent(this,NewsActivity::class.java))
-    }
-    private fun txtRegisterListener(){
-        binding.txtRegister.setOnClickListener{
-            startActivity(Intent(this,Register::class.java))
-        }
     }
 
     suspend fun login() {
@@ -41,16 +37,29 @@ class LoginActivity : AppCompatActivity() {
         val dao = db?.RegisDao()
         val email = binding.edtEmail.text.toString()
         val password = binding.edtConfPassword.text.toString()
-        val getEmail = dao?.getEmail(email).toString()
-        val getPassword = dao?.getPassword(password).toString()
 
+        var userLoggedIn = false
 
-
-        if (dao?.login(email, password) == true) {
-            startActivity(Intent(this, MainActivity::class.java))
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            userLoggedIn = dao!!.login(email, password)
+        }
+        if (userLoggedIn) {
+            val intent = Intent(this,ConcertActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
         } else {
             Toast.makeText(this, "Username atau password salah!", Toast.LENGTH_LONG)
                 .show()
+
         }
     }
+
+
+    private fun txtRegisterListener() {
+        binding.txtRegister.setOnClickListener {
+            startActivity(Intent(this, Register::class.java))
+        }
+    }
+
 }

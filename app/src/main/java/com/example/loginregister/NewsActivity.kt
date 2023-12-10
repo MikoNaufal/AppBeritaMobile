@@ -43,7 +43,7 @@ class NewsActivity : AppCompatActivity() {
         binding.apply {
             var query = searchView.text.toString()
             if (query.isEmpty()) {
-                query = "military"
+                query = "concert indonesia"
             }
             viewModel.getNews(query, binding.rvNews, adapter)
         }

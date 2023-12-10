@@ -1,4 +1,4 @@
-package db
+package com.example.loginregister.db
 
 import androidx.room.Dao
 import androidx.room.Delete

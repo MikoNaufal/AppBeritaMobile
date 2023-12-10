@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.loginregister.databinding.ActivityRegisterBinding
-import db.AppDatabase
-import db.Regis
+import com.example.loginregister.db.AppDatabase
+import com.example.loginregister.db.Regis
 import kotlinx.coroutines.launch
 
 class Register : AppCompatActivity() {

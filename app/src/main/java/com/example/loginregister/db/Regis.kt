@@ -1,4 +1,4 @@
-package db
+package com.example.loginregister.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
